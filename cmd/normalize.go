@@ -10,25 +10,30 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var validStrings = [3]string{"snake_case", "cammelCase", "nospaces"}
+
 // normalizeCmd represents the normalize command
 var normalizeCmd = &cobra.Command{
 	Use:   "normalize",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "Normalizes the name of the files and folder. ",
+	Long: `Normalizes the name of the files and folders using a convention. The following conventions are supported: 
+		- snake_case
+		- cammelCase
+		- nospaces
+	To select the convention you want to use, use the --type= flag
+	`,
 	Run: func(cmd *cobra.Command, args []string) {
+		// Can check with only flags...
 		fmt.Println("normalize called")
+		fmt.Println(args)
 	},
+	ValidArgs: validStrings[:],
+	Args:      cobra.ExactValidArgs(1),
+	Example:   "filename_normalizer normalize snake_case",
 }
 
 func init() {
 	rootCmd.AddCommand(normalizeCmd)
-
-	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
@@ -37,4 +42,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// normalizeCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	//normalizeCmd.Flags().StringP("type", "t", "", "Select the type of the arr")
+	//normalizeCmd.MarkFlagRequired("type")
 }
