@@ -12,6 +12,22 @@ A CLI app that handles normalizing the filenames in a folder. It can remove spac
         - r -> recursive
         - v -> verbose
         - i -> interactive
+        - dir -> directory
+
+# Commands examples
+
+```bash
+filename-normalizer normilize -type=camelCase
+filename-normalizer normilize -type=snake_case
+filename-normalizer normilize -type=nospace
+filename-normalizer add suffix hello
+filename-normalizer remove suffix homework
+filename-normalizer add prefix --parent-dir
+filename-normalizer remove prefix homework
+
+```
+
+
 
 
 # Development
