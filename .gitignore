@@ -16,3 +16,8 @@
 
 # User defined scripts
 *.dev.sh
+
+# bin folder
+bin/
+
+
