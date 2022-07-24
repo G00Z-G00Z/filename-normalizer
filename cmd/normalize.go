@@ -5,12 +5,14 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"errors"
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
 
-var validStrings = [3]string{"snake_case", "cammelCase", "nospaces"}
+var validTypes = [3]string{"snake_case", "cammelCase", "nospaces"}
 
 // normalizeCmd represents the normalize command
 var normalizeCmd = &cobra.Command{
@@ -22,14 +24,35 @@ var normalizeCmd = &cobra.Command{
 		- nospaces
 	To select the convention you want to use, use the --type= flag
 	`,
-	Run: func(cmd *cobra.Command, args []string) {
-		// Can check with only flags...
+	RunE: func(cmd *cobra.Command, args []string) error {
+
 		fmt.Println("normalize called")
-		fmt.Println(args)
+		var directory string
+
+		// Check for valid directory
+		if len(args) == 1 {
+			fileInfo, err := os.Stat(args[0])
+
+			if err != nil || !fileInfo.IsDir() {
+				return errors.New("argument given is not a valid directory")
+			}
+
+			directory = args[0]
+			// Defaults to workging directory
+		} else {
+			directoryName, err := os.Getwd()
+
+			if err != nil {
+				return err
+			}
+			directory = directoryName
+		}
+
+		fmt.Printf("Using %s directory \n", directory)
+		return nil
 	},
-	ValidArgs: validStrings[:],
-	Args:      cobra.ExactValidArgs(1),
-	Example:   "filename_normalizer normalize snake_case",
+	Args:    cobra.MaximumNArgs(1),
+	Example: "filename_normalizer normalize -type=snake_case ./",
 }
 
 func init() {
@@ -42,6 +65,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// normalizeCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	//normalizeCmd.Flags().StringP("type", "t", "", "Select the type of the arr")
-	//normalizeCmd.MarkFlagRequired("type")
+	normalizeCmd.Flags().StringP("type", "t", "", "Select the type of the arr")
+	normalizeCmd.MarkFlagRequired("type")
 }
