@@ -17,13 +17,13 @@ A CLI app that handles normalizing the filenames in a folder. It can remove spac
 # Commands examples
 
 ```bash
-filename-normalizer normilize -type=camelCase
-filename-normalizer normilize -type=snake_case
-filename-normalizer normilize -type=nospace
-filename-normalizer add suffix hello
-filename-normalizer remove suffix homework
-filename-normalizer add prefix --parent-dir
-filename-normalizer remove prefix homework
+filename-normalizer normilize -type=camelCase . 
+filename-normalizer normilize -type=snake_case homework/
+filename-normalizer normilize -type=nospace homework/project/
+filename-normalizer add suffix hello .
+filename-normalizer remove suffix homework ../../
+filename-normalizer add prefix --parent-dir homework/
+filename-normalizer remove prefix homework .
 
 ```
 
