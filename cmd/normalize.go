@@ -1,6 +1,6 @@
 /*
 Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
+for completions: https://github.com/spf13/cobra/blob/main/shell_completions.md
 */
 package cmd
 
@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var validTypes = [3]string{"snake_case", "cammelCase", "nospaces"}
+var validTypeFlag = [3]string{"snake_case", "cammelCase", "nospaces"}
 
 // normalizeCmd represents the normalize command
 var normalizeCmd = &cobra.Command{
@@ -27,6 +27,7 @@ var normalizeCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		fmt.Println("normalize called")
+
 		var directory string
 
 		// Check for valid directory
@@ -48,7 +49,10 @@ var normalizeCmd = &cobra.Command{
 			directory = directoryName
 		}
 
+		typeNormalize, _ := cmd.Flags().GetString("type")
+
 		fmt.Printf("Using %s directory \n", directory)
+		fmt.Printf("Using %s\n", typeNormalize)
 		return nil
 	},
 	Args:    cobra.MaximumNArgs(1),
@@ -67,4 +71,7 @@ func init() {
 	// normalizeCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	normalizeCmd.Flags().StringP("type", "t", "", "Select the type of the arr")
 	normalizeCmd.MarkFlagRequired("type")
+	normalizeCmd.RegisterFlagCompletionFunc("type", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+		return validTypeFlag[:], cobra.ShellCompDirectiveDefault
+	})
 }
