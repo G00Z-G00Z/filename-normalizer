@@ -25,9 +25,9 @@ func init() {
 
 }
 
-func TestSpaces2snakeCase(t *testing.T) {
+func TestChangeSpacesFor_(t *testing.T) {
 	for _, test := range tests {
-		test.SetOutput(spaces2snakeCase(test.Input))
+		test.SetOutput(changeSpacesFor_(test.Input))
 
 		if !test.IsCorrect() {
 			test.DisplayError(t)
