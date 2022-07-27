@@ -5,14 +5,11 @@ import (
 	"strings"
 )
 
-var changeSpacesFor_Regex = regexp.MustCompile(`(?m) `)
 var snakeCase2CammelCaseRegex = regexp.MustCompile(`(?m)_(\w)`)
-
-const subSpaces = "_"
 
 // Transforms spaced out names to snake case
 func changeSpacesFor_(s string) string {
-	return changeSpacesFor_Regex.ReplaceAllString(s, subSpaces)
+	return strings.ReplaceAll(s, " ", "_")
 }
 
 func Spaces2SnakeCase(s string) string {
@@ -23,5 +20,12 @@ func SnakeCase2CammelCase(s string) string {
 	return snakeCase2CammelCaseRegex.ReplaceAllStringFunc(s, func(m string) string {
 		return strings.ToUpper(strings.Trim(m, "_"))
 	})
+}
 
+func SnakeCase2Spaces(s string) string {
+	return strings.ReplaceAll(s, "_", " ")
+}
+
+func CammelCase2SnakeCase(s string) string {
+	return SnakeCase2CammelCase(Spaces2SnakeCase(s))
 }
