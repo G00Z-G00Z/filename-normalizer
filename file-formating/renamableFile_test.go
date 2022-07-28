@@ -61,3 +61,5 @@ func TestReturnToOriginal(t *testing.T) {
 	}
 
 }
+
+// snakeCaseToCosa = SnakeCase2CammelCase(Space2SnakeCase())
