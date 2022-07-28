@@ -15,7 +15,7 @@ type RenamableFile struct {
 	Ext string
 
 	// Full name of the file
-	OriginalName string
+	originalName string
 }
 
 // Creates a file Renamable File form a string
@@ -32,7 +32,7 @@ func CreateRenamableFile(filenameWithExtension string) (RenamableFile, error) {
 	file := RenamableFile{
 		Name:         name,
 		Ext:          ext,
-		OriginalName: filenameWithExtension,
+		originalName: filenameWithExtension,
 	}
 	return file, nil
 }
@@ -42,7 +42,7 @@ func (f *RenamableFile) GetCurrentFormat() utils.CaseFormat {
 }
 
 func (f *RenamableFile) GetOriginalName() string {
-	return f.OriginalName
+	return f.originalName
 }
 
 func (f *RenamableFile) GetFullName() string {
@@ -50,7 +50,7 @@ func (f *RenamableFile) GetFullName() string {
 }
 
 func (f *RenamableFile) ReturnToOriginal() IRenamable {
-	f.Name = f.OriginalName
+	f.Name = f.originalName
 	return f
 }
 
