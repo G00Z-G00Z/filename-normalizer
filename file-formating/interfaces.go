@@ -14,11 +14,13 @@ type IRenamable interface {
 	GetOriginalName() string
 
 	// Revert back to original name
-	ReturnToOriginal() IRenamable
+	ReturnToOriginal()
 
 	// Formatters
+	ChangeCase(formatter IFormatter)
+}
 
-	ToCammelCase() IRenamable
-	ToSnakeCase() IRenamable
-	ToSpaces() IRenamable
+// Formatter that takes a string and transform it
+type IFormatter interface {
+	Transform(s string) string
 }

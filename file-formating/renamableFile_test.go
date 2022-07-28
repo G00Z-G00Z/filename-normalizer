@@ -48,20 +48,13 @@ func TestRenamableFileCreation(t *testing.T) {
 
 }
 
+// todo test formatter
 func TestReturnToOriginal(t *testing.T) {
 
 	file, _ := CreateRenamableFile(spacesCase.Input)
 
 	spacesCase.Output = file.GetOriginalName()
 	spacesCase.Expected = spacesCase.Input
-
-	if !spacesCase.IsCorrect() {
-		spacesCase.DisplayError(t)
-	}
-
-	file.ToSnakeCase()
-
-	spacesCase.Output = file.GetOriginalName()
 
 	if !spacesCase.IsCorrect() {
 		spacesCase.DisplayError(t)

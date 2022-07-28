@@ -49,22 +49,10 @@ func (f *RenamableFile) GetFullName() string {
 	return fmt.Sprintf("%s.%s", f.Name, f.Ext)
 }
 
-func (f *RenamableFile) ReturnToOriginal() IRenamable {
+func (f *RenamableFile) ReturnToOriginal() {
 	f.Name = f.originalName
-	return f
 }
 
-func (f *RenamableFile) ToCammelCase() IRenamable {
-	f.Name = utils.SnakeCase2CammelCase(utils.Spaces2SnakeCase(f.Name))
-	return f
-}
-
-func (f *RenamableFile) ToSnakeCase() IRenamable {
-	f.Name = utils.CammelCase2SnakeCase(utils.Spaces2SnakeCase(f.Name))
-	return f
-}
-
-func (f *RenamableFile) ToSpaces() IRenamable {
-	f.Name = utils.SnakeCase2Spaces(utils.CammelCase2SnakeCase(f.Name))
-	return f
+func (f *RenamableFile) ChangeCase(formatter IFormatter) {
+	f.Name = formatter.Transform(f.Name)
 }
