@@ -1,18 +1,17 @@
 package fileformating
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/G00Z-G00Z/filename-normalizer/utils"
 )
 
-var tests []utils.TestUnit[string, string]
-
-func init() {
-	tests := []utils.TestUnit[string, string]{}
-	fmt.Println(tests)
-}
+var (
+	cammelCase  = utils.TestUnit[string, string]{Input: "breakingBadFinalDraft.txt"}
+	oneWordFile = utils.TestUnit[string, string]{Input: "draft.cpp"}
+	snakeCase   = utils.TestUnit[string, string]{Input: "breaking_bad_final_draft.txt"}
+	spacesCase  = utils.TestUnit[string, string]{Input: "Breaking bad final draft.txt"}
+)
 
 func TestRenamableFileCreation(t *testing.T) {
 
@@ -35,8 +34,37 @@ func TestRenamableFileCreation(t *testing.T) {
 		t.Errorf("extension '%s' doesnt match with file.Ext='%s'", extension, renamableFile.Ext)
 	}
 
-	if completeName != renamableFile.OriginalName {
-		t.Errorf("completeName '%s' doesnt match with file.OriginalName='%s'", completeName, renamableFile.OriginalName)
+	if completeName != renamableFile.originalName {
+		t.Errorf("completeName '%s' doesnt match with file.OriginalName='%s'", completeName, renamableFile.originalName)
+	}
+
+	completeName = ""
+
+	renamableFile, err = CreateRenamableFile(completeName)
+
+	if err == nil {
+		t.Error("Empty file didnt generate an error")
+	}
+
+}
+
+func TestReturnToOriginal(t *testing.T) {
+
+	file, _ := CreateRenamableFile(spacesCase.Input)
+
+	spacesCase.Output = file.GetOriginalName()
+	spacesCase.Expected = spacesCase.Input
+
+	if !spacesCase.IsCorrect() {
+		spacesCase.DisplayError(t)
+	}
+
+	file.ToSnakeCase()
+
+	spacesCase.Output = file.GetOriginalName()
+
+	if !spacesCase.IsCorrect() {
+		spacesCase.DisplayError(t)
 	}
 
 }
