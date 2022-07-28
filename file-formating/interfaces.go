@@ -70,3 +70,46 @@ func init() {
 		}
 
 }
+
+// https://go.dev/play/p/ow0ffYpPoyp
+
+type StringManipulator func(string) string
+
+type StringManipulatorDecorator func(StringManipulator) StringManipulator
+
+func ToLower(m StringManipulator) StringManipulator {
+	return func(s string) string {
+		lower := strings.ToLower(s)
+		return m(lower)
+	}
+}
+
+func AddPreffix(m StringManipulator) StringManipulator {
+	return func(s string) string {
+		preff := "hola " + s
+		return m(preff)
+	}
+}
+
+// MultiDecorator "merges" the passed in decorators and returns a singe decorator.
+func MultiDecorator(ds ...StringManipulatorDecorator) StringManipulatorDecorator {
+	return func(m StringManipulator) StringManipulator {
+		for i := range ds {
+			d := ds[len(ds)-1-i] // iterate in reverse
+			m = d(m)
+		}
+		return m
+	}
+}
+
+func init() {
+
+	s := "Hello"
+
+	var fn StringManipulator = func(s string) string { return s }
+
+	lowerPre := ToLower(AddPreffix(fn))
+
+	fmt.Println(lowerPre(s))
+
+}
