@@ -1,47 +1,62 @@
 package caseformaters
 
-import (
-	"testing"
+import "testing"
 
-	"github.com/G00Z-G00Z/filename-normalizer/utils"
-)
-
-type caseTests struct {
-	Spaces     string
-	SnakeCase  string
-	CammelCase string
+type specificFormat struct {
+	Str    string
+	Format CaseFormat
 }
 
-type inputWithCurrentCase struct {
-	Input       string
-	CurrentCase CaseFormat
-}
-
-var testsCases = []utils.TestUnit[caseTests, caseTests]{
+var samples = []specificFormat{
 	{
-		Input: caseTests{
-			Spaces:     "hello how are you",
-			SnakeCase:  "hello_how_are_you",
-			CammelCase: "helloHowAreYou",
-		},
+		Str:    "hello how are you",
+		Format: SpacesCase,
+	},
+	{
+		Str:    "hello_how_are_you",
+		Format: SnakeCase,
+	},
+	{
+		Str:    "helloHowAreYou",
+		Format: CammelCase,
 	},
 }
 
-func testFormatTransform(t *testing.T, str string, fn CaseFormatter, caseFormat CaseFormat, correct string) {
+func testWithSpecificFormat(t *testing.T, f *specificFormat, correctTransformation *string, testedFormatData *caseMetaData) {
 
-	if transformed := fn(str, caseFormat); transformed != correct {
-		t.Errorf("%v fn transformed %s -> %s. It supposed to transfrom into %s\n", fn, str, transformed, correct)
+	result := testedFormatData.Case2snakeCase(f.Str, f.Format)
+
+	if result != *correctTransformation {
+		t.Errorf("%s -> %s when using tranforms to %s. Expected %s", f.Str, result, testedFormatData.Name, *correctTransformation)
 	}
 
 }
 
-func testSeveralFormatTransforms(t *testing.T, correctTransform string, testingFunc CaseFormatter, inputs []inputWithCurrentCase) {
-	for _, input := range inputs {
-		testFormatTransform(t, input.Input, testingFunc, input.CurrentCase, correctTransform)
-	}
+func TestIfEveryFormatIsFound(t *testing.T) {
 
+	for _, sample := range samples {
+
+		_, ok := caseFormattersMetaData[sample.Format]
+
+		if !ok {
+			t.Errorf("Format with code %d is not found in metadata!", sample.Format)
+		}
+
+	}
 }
 
-func TestCaseToSnakeCase(t *testing.T) {
+func TestToSnakeCase(t *testing.T) {
+
+	for _, sampleToBeTested := range samples {
+
+		format := caseFormattersMetaData[sampleToBeTested.Format]
+
+		for _, sampleToTestAgainst := range samples {
+
+			testWithSpecificFormat(t, &sampleToTestAgainst, &sampleToBeTested.Str, &format)
+
+		}
+
+	}
 
 }
