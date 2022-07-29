@@ -6,5 +6,22 @@ type CaseFormatter func(s string, currentFormat CaseFormat) string
 // Function that manipulates a string
 type StringFormatter func(s string) string
 
-// Function that takes a CaseFormatter and decorates it
-type CaseFormatterDecorator func(f CaseFormatter) CaseFormatter
+// Function that identifies a case
+type CaseIdentifier func(s string) bool
+
+// Case format enum
+type CaseFormat int
+
+const (
+	SnakeCase CaseFormat = iota
+	CammelCase
+	Spaces
+	// Add any more cases you want to consider here
+)
+
+type caseMetaData struct {
+	Case2snakeCase StringFormatter
+	Name           string
+	SnakeCase2Case StringFormatter
+	IsCase         CaseIdentifier
+}

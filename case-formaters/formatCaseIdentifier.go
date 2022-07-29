@@ -2,14 +2,6 @@ package caseformaters
 
 import "strings"
 
-type CaseFormat int
-
-const (
-	SnakeCase CaseFormat = iota
-	CammelCase
-	Spaces
-)
-
 func IdentifyCaseFormat(s string) CaseFormat {
 
 	// Has spaces
