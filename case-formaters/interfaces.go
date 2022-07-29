@@ -17,6 +17,7 @@ const (
 	SnakeCase CaseFormat = iota
 	CammelCase
 	SpacesCase
+	Unkwon
 	// Add any more cases you want to consider here
 )
 
