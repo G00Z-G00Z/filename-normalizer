@@ -25,5 +25,5 @@ var isSnakeCase CaseIdentifier = func(s string) bool {
 }
 
 var isCammelCase CaseIdentifier = func(s string) bool {
-	return !isSpaces(s) && strings.Contains(s, "_")
+	return !isSpaces(s) && !isSnakeCase(s)
 }
