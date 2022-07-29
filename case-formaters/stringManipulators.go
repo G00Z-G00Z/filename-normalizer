@@ -6,6 +6,13 @@ import (
 	"strings"
 )
 
+// Case 2 Snakecase string manipulators
+var snake2caseSM = map[CaseFormat]StringFormatter{
+	SnakeCase:  func(s string) string { return s },
+	CammelCase: snakeCase2CammelCase,
+	SpacesCase: snakeCase2Spaces,
+}
+
 // Important precompiled regex
 var (
 	snakeCase2CammelCaseRegex = regexp.MustCompile(`(?m)_(\w)`)

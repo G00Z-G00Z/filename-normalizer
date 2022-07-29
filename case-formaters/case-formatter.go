@@ -2,7 +2,8 @@ package caseformaters
 
 import "fmt"
 
-var caseToSnakeCaseStringManipulators = map[CaseFormat]StringFormatter{
+// Case 2 Snakecase string manipulators
+var case2snakeCaseSM = map[CaseFormat]StringFormatter{
 	SnakeCase:  func(s string) string { return s },
 	CammelCase: cammelCase2SnakeCase,
 	SpacesCase: spaces2SnakeCase,
@@ -12,7 +13,7 @@ var caseToSnakeCaseStringManipulators = map[CaseFormat]StringFormatter{
 // Uses a map to store the functions used to transform any case to SnakeCase
 var normalizeToSnakeCase CaseFormatter = func(s string, currentFormat CaseFormat) string {
 
-	fn, ok := caseToSnakeCaseStringManipulators[currentFormat]
+	fn, ok := case2snakeCaseSM[currentFormat]
 
 	if !ok {
 		panic(fmt.Sprintf("an unrecognizable case format with code '%d' doesnt have a CaseToSnakeCase function asigned!!", currentFormat))
@@ -25,12 +26,12 @@ var normalizeToSnakeCase CaseFormatter = func(s string, currentFormat CaseFormat
 // Decorator for checking case and optimizing transforms
 // It requires a function that transforms snakeCase to any other format
 // It also normalizes the input to snakeCase if needed
-var stringFormatter2CaseFormatter = func(snakeCase2Casefn StringFormatter, targetCase CaseFormat) CaseFormatter {
+var stringFormatter2CaseFormatter = func(targetCase CaseFormat) CaseFormatter {
 	return func(s string, currentFormat CaseFormat) string {
 		if currentFormat == targetCase {
 			return s
 		}
-		return snakeCase2Casefn(normalizeToSnakeCase(s, currentFormat))
+		return snake2caseSM[targetCase](normalizeToSnakeCase(s, currentFormat))
 	}
 
 }
@@ -38,10 +39,10 @@ var stringFormatter2CaseFormatter = func(snakeCase2Casefn StringFormatter, targe
 // Case Transforms
 
 // Transforms strings to snakeCase
-var ToSnakeCase CaseFormatter = stringFormatter2CaseFormatter(func(s string) string { return s }, SnakeCase)
+var ToSnakeCase CaseFormatter = stringFormatter2CaseFormatter(SnakeCase)
 
 // Transforms strings to cammelCase
-var ToCammelCase CaseFormatter = stringFormatter2CaseFormatter(snakeCase2CammelCase, CammelCase)
+var ToCammelCase CaseFormatter = stringFormatter2CaseFormatter(CammelCase)
 
 // Transforms strings to spacesCase
-var ToSpaces CaseFormatter = stringFormatter2CaseFormatter(snakeCase2Spaces, SpacesCase)
+var ToSpaces CaseFormatter = stringFormatter2CaseFormatter(SpacesCase)
