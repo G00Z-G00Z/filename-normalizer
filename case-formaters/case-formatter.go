@@ -4,8 +4,8 @@ import "fmt"
 
 var caseToSnakeCaseStringManipulators = map[CaseFormat]StringFormatter{
 	SnakeCase:  func(s string) string { return s },
-	CammelCase: CammelCase2SnakeCase,
-	Spaces:     Spaces2SnakeCase,
+	CammelCase: cammelCase2SnakeCase,
+	Spaces:     spaces2SnakeCase,
 }
 
 // Normalizes any case to snake case, for later processing
@@ -41,7 +41,7 @@ var stringFormatter2CaseFormatter = func(snakeCase2Casefn StringFormatter, targe
 var ToSnakeCase CaseFormatter = stringFormatter2CaseFormatter(func(s string) string { return s }, SnakeCase)
 
 // Transforms strings to cammelCase
-var ToCammelCase CaseFormatter = stringFormatter2CaseFormatter(SnakeCase2CammelCase, CammelCase)
+var ToCammelCase CaseFormatter = stringFormatter2CaseFormatter(snakeCase2CammelCase, CammelCase)
 
 // Transforms strings to spacesCase
-var ToSpaces CaseFormatter = stringFormatter2CaseFormatter(SnakeCase2Spaces, Spaces)
+var ToSpaces CaseFormatter = stringFormatter2CaseFormatter(snakeCase2Spaces, Spaces)

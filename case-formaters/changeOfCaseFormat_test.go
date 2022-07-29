@@ -115,7 +115,7 @@ func TestChangeSpacesFor_(t *testing.T) {
 
 func TestSnakeCaseToSpaces(t *testing.T) {
 	for _, test := range testSnakeCase2Spaces {
-		test.SetOutput(SnakeCase2Spaces(test.Input))
+		test.SetOutput(snakeCase2Spaces(test.Input))
 		if !test.IsCorrect() {
 			test.DisplayError(t)
 		}
@@ -124,7 +124,7 @@ func TestSnakeCaseToSpaces(t *testing.T) {
 
 func TestSpaces2SnakeCase(t *testing.T) {
 	for _, test := range testToSnakeCase {
-		test.SetOutput(Spaces2SnakeCase(test.Input))
+		test.SetOutput(spaces2SnakeCase(test.Input))
 		if !test.IsCorrect() {
 			test.DisplayError(t)
 		}
@@ -133,7 +133,7 @@ func TestSpaces2SnakeCase(t *testing.T) {
 
 func TestSnakeCase2CammelCase(t *testing.T) {
 	for _, test := range testSnakeCase2CammelCase {
-		test.SetOutput(SnakeCase2CammelCase(test.Input))
+		test.SetOutput(snakeCase2CammelCase(test.Input))
 
 		if !test.IsCorrect() {
 			test.DisplayError(t)
@@ -143,7 +143,7 @@ func TestSnakeCase2CammelCase(t *testing.T) {
 
 func TestCammelCase2SnakeCase(t *testing.T) {
 	for _, test := range testCammelCase2SnakeCase {
-		test.SetOutput(CammelCase2SnakeCase(test.Input))
+		test.SetOutput(cammelCase2SnakeCase(test.Input))
 
 		if !test.IsCorrect() {
 			test.DisplayError(t)

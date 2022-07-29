@@ -18,24 +18,24 @@ func changeSpacesFor_(s string) string {
 }
 
 // Transforms a string with spaces into a snake case format
-func Spaces2SnakeCase(s string) string {
+func spaces2SnakeCase(s string) string {
 	return strings.ToLower(changeSpacesFor_(s))
 }
 
 // Transforms snake case format to cammel case format
-func SnakeCase2CammelCase(s string) string {
+func snakeCase2CammelCase(s string) string {
 	return snakeCase2CammelCaseRegex.ReplaceAllStringFunc(s, func(m string) string {
 		return strings.ToUpper(strings.Trim(m, "_"))
 	})
 }
 
 // Transforms snake case format to spaces
-func SnakeCase2Spaces(s string) string {
+func snakeCase2Spaces(s string) string {
 	return strings.ReplaceAll(s, "_", " ")
 }
 
 // Transforms cammel case format to snake case format
-func CammelCase2SnakeCase(s string) string {
+func cammelCase2SnakeCase(s string) string {
 	return cammelCase2snakeCaseRegex.ReplaceAllStringFunc(s, func(m string) string {
 		return fmt.Sprintf("_%s", strings.ToLower(m))
 	})
