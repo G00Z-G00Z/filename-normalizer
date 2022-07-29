@@ -13,11 +13,11 @@ func init() {
 	tests = []utils.TestUnit[string, CaseFormat]{
 		{
 			Input:    "hello who are you",
-			Expected: Spaces,
+			Expected: SpacesCase,
 		},
 		{
 			Input:    "my name is_not yours",
-			Expected: Spaces,
+			Expected: SpacesCase,
 		},
 		{
 			Input:    "i_am_in_snake_case",
