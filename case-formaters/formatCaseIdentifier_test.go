@@ -1,12 +1,16 @@
-package utils
+package caseformaters
 
-import "testing"
+import (
+	"testing"
 
-var tests []TestUnit[string, CaseFormat]
+	"github.com/G00Z-G00Z/filename-normalizer/utils"
+)
+
+var tests []utils.TestUnit[string, CaseFormat]
 
 func init() {
 
-	tests = []TestUnit[string, CaseFormat]{
+	tests = []utils.TestUnit[string, CaseFormat]{
 		{
 			Input:    "hello who are you",
 			Expected: Spaces,
