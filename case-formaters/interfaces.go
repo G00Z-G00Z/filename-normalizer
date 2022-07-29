@@ -25,7 +25,6 @@ const (
 type caseMetaData struct {
 	Case2snakeCase CaseFormatter
 	Name           string
-	SnakeCase2Case StringFormatter
 	IsCase         CaseIdentifier
 }
 
