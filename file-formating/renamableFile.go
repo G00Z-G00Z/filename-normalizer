@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"path"
 	"strings"
-
-	"github.com/G00Z-G00Z/filename-normalizer/utils"
 )
 
 type RenamableFile struct {
@@ -37,22 +35,22 @@ func CreateRenamableFile(filenameWithExtension string) (RenamableFile, error) {
 	return file, nil
 }
 
-func (f *RenamableFile) GetCurrentFormat() utils.CaseFormat {
-	return utils.IdentifyCaseFormat(f.Name)
-}
+// func (f *RenamableFile) GetCurrentFormat() utils.CaseFormat {
+// 	return utils.IdentifyCaseFormat(f.Name)
+// }
 
-func (f *RenamableFile) GetOriginalName() string {
-	return f.originalName
-}
+// func (f *RenamableFile) GetOriginalName() string {
+// 	return f.originalName
+// }
 
-func (f *RenamableFile) GetFullName() string {
-	return fmt.Sprintf("%s.%s", f.Name, f.Ext)
-}
+// func (f *RenamableFile) GetFullName() string {
+// 	return fmt.Sprintf("%s.%s", f.Name, f.Ext)
+// }
 
-func (f *RenamableFile) ReturnToOriginal() {
-	f.Name = f.originalName
-}
+// func (f *RenamableFile) ReturnToOriginal() {
+// 	f.Name = f.originalName
+// }
 
-func (f *RenamableFile) ChangeCase(formatter IFormatter) {
-	f.Name = formatter.Transform(f.Name)
-}
+// func (f *RenamableFile) ChangeCase(formatter IFormatter) {
+// 	f.Name = formatter.Transform(f.Name)
+// }
