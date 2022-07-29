@@ -1,20 +1,22 @@
-package utils
+package caseformaters
 
 import (
 	"testing"
+
+	"github.com/G00Z-G00Z/filename-normalizer/utils"
 )
 
 var (
-	testForRemovingSpaces    []TestUnit[string, string]
-	testToSnakeCase          []TestUnit[string, string]
-	testSnakeCase2CammelCase []TestUnit[string, string]
-	testSnakeCase2Spaces     []TestUnit[string, string]
-	testCammelCase2SnakeCase []TestUnit[string, string]
+	testForRemovingSpaces    []utils.TestUnit[string, string]
+	testToSnakeCase          []utils.TestUnit[string, string]
+	testSnakeCase2CammelCase []utils.TestUnit[string, string]
+	testSnakeCase2Spaces     []utils.TestUnit[string, string]
+	testCammelCase2SnakeCase []utils.TestUnit[string, string]
 )
 
 func init() {
 
-	testForRemovingSpaces = []TestUnit[string, string]{
+	testForRemovingSpaces = []utils.TestUnit[string, string]{
 		{
 			Input:    "hey how are you",
 			Expected: "hey_how_are_you",
@@ -31,7 +33,7 @@ func init() {
 		},
 	}
 
-	testToSnakeCase = []TestUnit[string, string]{
+	testToSnakeCase = []utils.TestUnit[string, string]{
 		{
 			Input:    "hey how are you",
 			Expected: "hey_how_are_you",
@@ -48,7 +50,7 @@ func init() {
 		},
 	}
 
-	testSnakeCase2CammelCase = []TestUnit[string, string]{
+	testSnakeCase2CammelCase = []utils.TestUnit[string, string]{
 		{
 			Input:    "hello",
 			Expected: "hello",
@@ -64,7 +66,7 @@ func init() {
 		},
 	}
 
-	testSnakeCase2Spaces = []TestUnit[string, string]{
+	testSnakeCase2Spaces = []utils.TestUnit[string, string]{
 		{
 			Expected: "hey how are you",
 			Input:    "hey_how_are_you",
@@ -83,7 +85,7 @@ func init() {
 		},
 	}
 
-	testCammelCase2SnakeCase = []TestUnit[string, string]{
+	testCammelCase2SnakeCase = []utils.TestUnit[string, string]{
 		{
 			Expected: "hello",
 			Input:    "hello",
