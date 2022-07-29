@@ -103,16 +103,6 @@ func init() {
 
 }
 
-func TestChangeSpacesFor_(t *testing.T) {
-	for _, test := range testForRemovingSpaces {
-		test.SetOutput(changeSpacesFor_(test.Input))
-
-		if !test.IsCorrect() {
-			test.DisplayError(t)
-		}
-	}
-}
-
 func TestSnakeCaseToSpaces(t *testing.T) {
 	for _, test := range testSnakeCase2Spaces {
 		test.SetOutput(snakeCase2Spaces(test.Input))
